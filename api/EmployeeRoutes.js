@@ -1,6 +1,7 @@
 import express from "express"
 const router = express.Router()
 import employees from "#db/employees";
+import { addEmployee } from "#db/employees";
 
 router.route("/").get((req, res) => {
   res.send(employees);
@@ -22,6 +23,20 @@ router.route("/:id").get((req, res) => {
   res.send(found);
 });
 
+router.route("/").post((req, res)=> {
+    const { name } = req.body
 
+    if (!name){
+       return res.status(400).send("No name provided")
+    }
+
+    if (typeof (name) !== `string`){
+        return res.status(400).send("Please provide a valid name")
+    }
+
+    addEmployee(name)
+    res.status(201).send(`${name} added!`)
+
+})
 
 export default router

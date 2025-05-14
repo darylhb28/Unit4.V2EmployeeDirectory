@@ -2,9 +2,9 @@ import express from "express";
 const app = express();
 export default app;
 
-import employees from "#db/employees";
-
 import employeeRouter from "#api/EmployeeRoutes";
+
+app.use(express.json())
 
 app.route("/").get((req, res) => {
   res.send("Hello employees!");
